@@ -89,24 +89,24 @@ const SavedPrompts = () => {
                 <input type="text" id="search" className="block p-2.5 w-full text-sm border" value={searchText} onChange={(event) => setSearchText(event.target.value)} placeholder="Enter search text ... " />
             </div>
             {showCopySuccess && <div className="ml-4 text-green-600">Copied to clipboard!</div>}
-            <div className="overflow-y-auto" style={{maxHeight:'430px'}} >
-            {filteredPrompts.map((prompt) => {
-                return (
-                    <div key={prompt.id} className="relative justify-between rounded-xl border border-gray-100 p-4 pr-8 shadow-sm mb-2">
-                        <button onClick={() => copyToClipboard(prompt.value)} className="absolute top-4 left-4 h-4 w-4">
-                            <img src="copy-icon.svg" className="h-4 w-4 mr-2" alt="Copy icon" />
-                        </button>
-                        {prompt.source !== 'github' ?
-                            <button onClick={() => handleDeletePrompt(prompt.id)} className="absolute top-4 right-0 pr-2">
-                                <img src="delete-icon.png" className="h-5 w-5 mr-0" alt="Delete icon" />
-                            </button> : ''
-                        }
-                        <span className="ml-8 mr-10">
-                            {prompt.value}
-                        </span>
-                    </div>
-                )
-            })}
+            <div className="overflow-y-auto" style={{ maxHeight: '430px' }} >
+                {filteredPrompts.map((prompt) => {
+                    return (
+                        <div key={prompt.id} className="relative justify-between rounded-xl border border-gray-100 p-4 pr-8 shadow-sm mb-2">
+                            <button onClick={() => copyToClipboard(prompt.value)} className="absolute top-4 left-4 h-4 w-4">
+                                <img src="copy-icon.svg" className="h-4 w-4 mr-2" alt="Copy icon" />
+                            </button>
+                            {prompt.source !== 'github' ?
+                                <button onClick={() => handleDeletePrompt(prompt.id)} className="absolute top-4 right-0 pr-2">
+                                    <img src="delete-icon.png" className="h-5 w-5 mr-0" alt="Delete icon" />
+                                </button> : ''
+                            }
+                            <span className="ml-8 mr-10">
+                                {prompt.value}
+                            </span>
+                        </div>
+                    )
+                })}
             </div>
         </>
     );
@@ -168,6 +168,15 @@ const App = () => {
                     <SavedPrompts />
                 </div>
             )}
+            <div className="footer" style={{ cursor: "pointer" }}>
+                <span className="footer-left" onClick={() => window.open("https://pavanreddy21.vercel.app/")}>
+                    Made by <span className="underline">Pavan Reddy</span>
+                </span>
+                <a href="https://pavanreddy21.vercel.app/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="40" width="150" />
+                </a>
+            </div>
+
         </div>
     );
 };

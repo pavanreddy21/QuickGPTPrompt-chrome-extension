@@ -39,9 +39,6 @@ const Popup = () => {
                 </button>
                 {showSuccess && <div className="text-green-500">Prompt saved successfully!</div>}
             </div>
-            <div className="footer" style={{ cursor: "pointer" }} onClick={() => window.open("https://pavanreddy21.vercel.app/")}>
-                Made by <span className="underline">Pavan Reddy</span>
-            </div>
         </div >
     )
 };
