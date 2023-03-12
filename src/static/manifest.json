@@ -1,0 +1,34 @@
+{
+    "manifest_version": 3,
+    "name": "QuickGPTPrompt",
+    "description": "QuickGPTPrompt is a handy Chrome extension that helps you save your favorite ChatGPT prompts and easily copy them to your clipboard. With just a few clicks, you can add a prompt, view your saved prompts, and quickly copy them for use in your writing or chat applications. Say goodbye to the hassle of constantly searching for new prompts and streamline your writing process with QuickGPTPrompt.",
+    "version": "1.0.0",
+    "action" : {
+        "default_popup": "popup.html",
+        "default_title": "QuickGPTPrompt",
+        "default_icon" : "icon.png"
+    },
+    // "chrome_url_overrides": {
+    //     "newtab": "newTab.html"
+    // },
+    "permissions": [
+        "bookmarks",
+        "storage",
+        "identity"
+    ],
+    "icons": {
+        "16" : "icon.png",
+        "48" : "icon.png",
+        "128" : "icon.png"
+    },
+    // "options_page": "options.html",
+    // "background": {
+    //     "service_worker": "background.js"
+    // },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["contentScript.js"]
+        }
+    ]
+}
