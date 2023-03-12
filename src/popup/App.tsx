@@ -170,7 +170,7 @@ const App = () => {
             )}
             <div className="footer" style={{ cursor: "pointer" }}>
                 <span className="footer-left" onClick={() => window.open("https://pavanreddy21.vercel.app/")}>
-                    Made by <span className="underline">Pavan Reddy</span>
+                    Made by <span className="underline">Pavan Reddy</span> with ❤️
                 </span>
                 <a href="https://pavanreddy21.vercel.app/" target="_blank" rel="noopener noreferrer">
                     <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="40" width="150" />
