@@ -155,7 +155,7 @@ const App = () => {
                         }`}
                     onClick={() => handleTabSelect(1)}
                 >
-                    Saved Prompts
+                    Prompts
                 </button>
             </div>
 
