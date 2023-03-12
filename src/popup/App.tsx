@@ -7,6 +7,8 @@ const SavedPrompts = () => {
     const [prompts, setPrompts] = React.useState([]);
     const [gitPrompts, setGitPrompts] = useState([]);
     const [searchText, setSearchText] = useState('');
+    const [showCopySuccess, setShowCopySuccess] = useState(false);
+
 
     // fetch local prompts and set state
     React.useEffect(() => {
@@ -53,7 +55,22 @@ const SavedPrompts = () => {
         textField.select();
         document.execCommand("copy");
         textField.remove();
+
+        setShowCopySuccess(true);
     };
+
+    useEffect(() => {
+        let timerId;
+        if (showCopySuccess) {
+            timerId = setTimeout(() => {
+                setShowCopySuccess(false);
+            }, 3000);
+        }
+        return () => {
+            clearTimeout(timerId);
+        };
+    }, [showCopySuccess]);
+
 
     // memoized combined prompts array
     const combinedPrompts = useMemo(() => {
@@ -71,6 +88,8 @@ const SavedPrompts = () => {
                 <label htmlFor="search" className="block mb-2 text-sm font-medium">Search Prompts</label>
                 <input type="text" id="search" className="block p-2.5 w-full text-sm border" value={searchText} onChange={(event) => setSearchText(event.target.value)} placeholder="Enter search text ... " />
             </div>
+            {showCopySuccess && <div className="ml-4 text-green-600">Copied to clipboard!</div>}
+            <div className="overflow-y-auto" style={{maxHeight:'430px'}} >
             {filteredPrompts.map((prompt) => {
                 return (
                     <div key={prompt.id} className="relative justify-between rounded-xl border border-gray-100 p-4 pr-8 shadow-sm mb-2">
@@ -88,6 +107,7 @@ const SavedPrompts = () => {
                     </div>
                 )
             })}
+            </div>
         </>
     );
 };
@@ -144,7 +164,7 @@ const App = () => {
                     <Popup />
                 </div>
             ) : (
-                <div className="overflow-y-auto">
+                <div>
                     <SavedPrompts />
                 </div>
             )}
