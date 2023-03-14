@@ -7,14 +7,21 @@ const SavedPrompts = () => {
     const [gitPrompts, setGitPrompts] = useState([]);
     const [searchText, setSearchText] = useState('');
     const [showCopySuccess, setShowCopySuccess] = useState(false);
-
-
+  
     // fetch local prompts and set state
     useEffect(() => {
-        chrome.storage.sync.get(["prompts"], (result) => {
-            setPrompts(result.prompts || []);
-        });
+      chrome.storage.sync.get(["prompts", "searchText"], (result) => {
+        setPrompts(result.prompts || []);
+        setSearchText(result.searchText || ''); // set search text from storage
+      });
     }, []);
+  
+    // store search text in Chrome storage whenever user types
+    const handleSearchTextChange = (event) => {
+      const newSearchText = event.target.value;
+      chrome.storage.sync.set({ searchText: newSearchText });
+      setSearchText(newSearchText);
+    };
 
     // fetch github prompts and set state
     useEffect(() => {
@@ -94,7 +101,7 @@ const SavedPrompts = () => {
         <>
             <div className="p-4">
                 <label htmlFor="search" className="block mb-2 text-sm font-medium">Search Prompts</label>
-                <input type="text" id="search" className="block p-2.5 w-full text-sm border" value={searchText} onChange={(event) => setSearchText(event.target.value)} placeholder="Enter search text ... " />
+                <input type="text" id="search" className="block p-2.5 w-full text-sm border" value={searchText} onChange={handleSearchTextChange} placeholder="Enter search text ... " />
             </div>
             {showCopySuccess && <div className="ml-4 text-green-600">Copied to clipboard!</div>}
             <div className="overflow-y-auto" style={{ maxHeight: '430px' }} >
