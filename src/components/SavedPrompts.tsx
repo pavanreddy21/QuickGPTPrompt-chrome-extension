@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import {CONSTANTS} from '../utils';
+import { CONSTANTS } from '../utils';
 import Papa from 'papaparse';
 
 const SavedPrompts = () => {
@@ -19,19 +19,30 @@ const SavedPrompts = () => {
     // fetch github prompts and set state
     useEffect(() => {
         const fetchPrompts = async () => {
-            const response = await fetch(CONSTANTS.PROMPTS_URL);
-            const csvText = await response.text();
-            const parsedCsv = Papa.parse(csvText, { header: true });
-            const csvPrompts = parsedCsv.data.map((row, id) => ({
-                id: id,
-                value: row.prompt,
-                source: "github"
-            }));
-
-            setGitPrompts(csvPrompts);
+            try {
+                const response = await fetch(CONSTANTS.PROMPTS_URL);
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                const csvText = await response.text();
+                const parsedCsv = Papa.parse(csvText, { header: true });
+                if (parsedCsv.errors.length) {
+                    throw new Error("Failed to parse CSV data");
+                }
+                const csvPrompts = parsedCsv.data.map((row, id) => ({
+                    id: id,
+                    value: row.prompt,
+                    source: "github"
+                }));
+                setGitPrompts(csvPrompts);
+            } catch (error) {
+                console.error(error);
+                // Handle error state here
+            }
         };
         fetchPrompts();
     }, []);
+
 
     // delete prompt handler
     const handleDeletePrompt = (id) => {
