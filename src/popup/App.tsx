@@ -11,14 +11,14 @@ const SavedPrompts = () => {
 
 
     // fetch local prompts and set state
-    React.useEffect(() => {
+    useEffect(() => {
         chrome.storage.sync.get(["prompts"], (result) => {
             setPrompts(result.prompts || []);
         });
     }, []);
 
     // fetch github prompts and set state
-    React.useEffect(() => {
+    useEffect(() => {
         const fetchPrompts = async () => {
             const response = await fetch(
                 "https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv"
