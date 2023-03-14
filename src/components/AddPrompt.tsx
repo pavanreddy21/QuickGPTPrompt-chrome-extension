@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import './popup.css'
 
 const Popup = () => {
     const [inputValue, setInputValue] = useState("");
