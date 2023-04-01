@@ -33,14 +33,14 @@ const SavedPrompts = () => {
                 }
                 const csvText = await response.text();
                 const parsedCsv = Papa.parse(csvText, { header: true });
-                if (parsedCsv.errors.length) {
-                    throw new Error("Failed to parse CSV data");
-                }
+                // if (parsedCsv.errors.length) {
+                //     throw new Error("Failed to parse CSV data");
+                // }
                 const csvPrompts = parsedCsv.data.map((row, id) => ({
                     id: id,
                     value: row.prompt,
                     source: "github"
-                }));
+                })).filter(itmem => itmem.value);
                 setGitPrompts(csvPrompts);
             } catch (error) {
                 console.error(error);
